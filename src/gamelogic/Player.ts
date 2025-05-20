@@ -12,6 +12,8 @@ export class Player extends Entity {
   accelerationRate: number;
   damageColor: Color;
   colorIncrease: number;
+  iframes: number;
+  maxiframes: number;
 
   constructor(props: EntityProps) {
     super(props);
@@ -32,11 +34,15 @@ export class Player extends Entity {
     this.shields = 1;
     this.shieldRechargeRate = 0.002; // every frame charge by 5%
     this.collisionPadding = 10;
+
+    this.maxiframes = 30;
+    this.iframes = 0;
   }
 
-  // should return back game over boolean?
   takeDamage() {
+    if (this.iframes > 0) return false;
     if (this.shields < 1) return true;
+    this.iframes = this.maxiframes;
     this.shields -= 1;
     return false;
   }
@@ -44,7 +50,7 @@ export class Player extends Entity {
   update() {
     // how to indicate shield?
     if (this.shields < 1) {
-      // maybe slowly draw shields over?
+      this.iframes -= 1;
       this.shields += this.shieldRechargeRate;
     }
     this.velocity.add(this.acceleration);
