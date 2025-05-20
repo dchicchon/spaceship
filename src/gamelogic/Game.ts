@@ -1,7 +1,7 @@
 import { Q5, Vector } from 'q5xts';
 import type { Entity } from './Entity';
 import earth from '../assets/earth.png';
-import mars from '../assets/mars.png';
+// import mars from '../assets/mars.png';
 import playerImage from '../assets/ship1.png';
 import enemyImage from '../assets/pirate.png';
 import ast1 from '../assets/ast1.png';
