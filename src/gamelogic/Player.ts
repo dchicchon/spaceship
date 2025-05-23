@@ -30,7 +30,7 @@ export class Player extends Entity {
 
     // gameplay related
     this.accelerationRate = 0;
-    this.maxSpeed = 4;
+    this.maxSpeed = 3;
     this.shields = 1;
     this.shieldRechargeRate = 0.002; // every frame charge by 5%
     this.collisionPadding = 10;

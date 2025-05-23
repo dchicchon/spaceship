@@ -29,6 +29,10 @@ interface GameImages {
   };
 }
 
+// how do we get cell dimensions?
+const scale = 0.5;
+const mobileWidth = 400;
+
 export class Game extends Q5 {
   // game logic
   distance: number;
@@ -51,7 +55,11 @@ export class Game extends Q5 {
   // player
   player: Player;
 
+  // planets
   planets: Array<Planet>;
+  viewScale: number;
+
+  // drawing
   cameraPos: Vector;
   deleteCount: number;
   images: GameImages;
@@ -63,11 +71,19 @@ export class Game extends Q5 {
   constructor(parentElm: HTMLElement) {
     super('', parentElm);
     this.mode = 0;
+
+    if (this.width < mobileWidth) {
+      this.viewScale = 0.75;
+    } else {
+      this.viewScale = 1;
+    }
+    console.log(this.viewScale);
     this.setup = this.setupFn;
     this.draw = this.drawFn;
     this.noiseSeed(1);
     this.deleteCount = 0;
 
+    // figure out the width and height
     // game logic
     this.distance = 0;
 
@@ -120,8 +136,8 @@ export class Game extends Q5 {
     this.planets.push(
       new Planet({
         position: this.createVector(this.width / 2, this.height - this.height / 4),
-        width: 150,
-        height: 150,
+        width: 150 * this.viewScale,
+        height: 150 * this.viewScale,
         image: this.loadImage(earth),
       })
     );
@@ -144,8 +160,8 @@ export class Game extends Q5 {
     const player = new Player({
       position: this.createVector(this.width / 2, this.height / 2),
       image: this.images.player.default,
-      width: 50,
-      height: 50,
+      width: 50 * this.viewScale,
+      height: 50 * this.viewScale,
     });
     return player;
   }
@@ -544,7 +560,11 @@ export class Game extends Q5 {
       const posY = this.random(side.yStart, side.yEnd);
 
       const position = this.createVector(posX, posY);
+      const mass = Math.floor(Math.random() * 4) + 1;
+      const size = mass * 25 * this.viewScale;
       const asteroid = new Asteroid({
+        width: size,
+        height: size,
         position,
         image,
       });
@@ -568,8 +588,8 @@ export class Game extends Q5 {
       const position = this.createVector(posX, posY);
       const enemy = new Enemy({
         position,
-        width: 50,
-        height: 50,
+        width: 50 * this.viewScale,
+        height: 50 * this.viewScale,
         image: this.images.enemy.default,
       });
       this.enemies.push(enemy);
@@ -680,6 +700,7 @@ export class Game extends Q5 {
       this.drawEntities();
       this.drawUI();
       this.removeEntities();
+      this.player.acceleration.mult(0);
       return;
     }
 

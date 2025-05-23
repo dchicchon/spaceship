@@ -7,7 +7,7 @@ export class Enemy extends Entity {
   constructor(props: EntityProps) {
     super(props);
     this.collisionPadding = 5;
-    this.maxSpeed = 2;
+    this.maxSpeed = 1;
     this.initialRotation = -(Math.PI * 3) / 2;
     this.velocity = new Vector(0, 0);
   }

@@ -6,10 +6,7 @@ export class Asteroid extends Entity {
   velocity: Vector;
   maxSpeed: number;
   constructor(props: EntityProps) {
-    const mass = Math.floor(Math.random() * 5) + 1;
-    const size = mass * 25;
-    props.width = size;
-    props.height = size;
+
     super(props);
     this.maxSpeed = 1;
     const xVel =
