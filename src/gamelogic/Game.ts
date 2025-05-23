@@ -29,8 +29,6 @@ interface GameImages {
   };
 }
 
-// how do we get cell dimensions?
-const scale = 0.5;
 const mobileWidth = 400;
 
 export class Game extends Q5 {

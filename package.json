@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "preact": "^10.26.5",
-    "q5xts": "0.0.25"
+    "q5xts": "^0.0.28"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",
